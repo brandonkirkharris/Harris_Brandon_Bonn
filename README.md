@@ -1,5 +1,5 @@
 # Harris_Brandon_Bonn
-Programs and scripts associated with the Masters Thesis for Brandon Kirk Harris at the University of Bonn
+Programs and scripts used to process data for the Masters Thesis for Brandon Kirk Harris at the University of Bonn.
 
 Name: Brandon Kirk Harris
 Thesis title: Comparison of information content of different genomic SNP marker sets for population genetic analyses of Canis lupus
