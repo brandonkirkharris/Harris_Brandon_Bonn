@@ -178,3 +178,55 @@ ggsave(plot = dp, width = 3500, height = 2000, units = "px",
 
 
 ####----------------------------------------------------------------------------
+####Part Seven: D-Statistic and Fst Interpretation
+##Interpretation 1:
+out <- paste("(((", ygbb[2,]$P1, ",", ygbb[2,]$P3, "),", ygbb[2,]$P2, "),JACK);", sep = "")
+dtree <- read.tree(text=out)
+int1 <- ggtree(dtree, layout="roundrect") +
+  theme_tree() +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
+        axis.text = element_blank(), axis.ticks = element_blank()) +
+  geom_tiplab(align=T, family="mono", linetype="dashed", size = 4, hjust = -1) +
+  geom_taxalink(taxa1=ygbb[2,]$P2, taxa2=ygbb[2,]$P3, color="darkgrey", 
+                curvature = -1.3, size = 1, linetype="dashed", ncp = 5) +
+  geom_text(x=3, y=4.2, label=paste("Fst =", fst_yvg[11,]$Weighted)) +
+  geom_taxalink(taxa1=ygbb[2,]$P1, taxa2=ygbb[2,]$P2, color="darkgrey", 
+                curvature = 1.3, size = 1, linetype="dashed", ncp = 10) +
+  geom_text(x=3, y=3.5, label=paste("Fst =", fst_yvg[12,]$Weighted)) +
+  geom_taxalink(taxa1=ygbb[2,]$P1, taxa2=ygbb[2,]$P3, color="darkgrey", 
+                curvature = -1.3, size = 1, linetype="dashed", ncp = 10) +
+  geom_text(x=3, y=2.5, label=paste("Fst =", fst_yvg[15,]$Weighted)) +
+  ggtitle(paste("Interpretation 1 ", marker, ": ",
+                "((", ygbb[2,]$P1, ",", ygbb[2,]$P3, "),", ygbb[2,]$P2, ")", sep = "")) +
+  xlim(0,3.5)
+int1
+##Interpretation 2:
+out2 <- paste("(((", ygbb[2,]$P1, ",", ygbb[2,]$P2, "),", ygbb[2,]$P3, "),JACK);", sep = "")
+dtree2 <- read.tree(text=out2)
+int2 <- ggtree(dtree2, layout="roundrect") +
+  theme_tree() +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
+        axis.text = element_blank(), axis.ticks = element_blank()) +
+  geom_tiplab(align=T, family="mono", linetype="dashed", size = 4, hjust = -1) +
+  geom_taxalink(taxa1=ygbb[2,]$P2, taxa2=ygbb[2,]$P3, color="darkgrey", 
+                curvature = 1.3, size = 1, linetype="dashed", ncp = 5) +
+  geom_text(x=3, y=4.2, label=paste("Fst =", fst_yvg[11,]$Weighted)) +
+  geom_taxalink(taxa1=ygbb[2,]$P1, taxa2=ygbb[2,]$P2, color="darkgrey", 
+                curvature = -1.3, size = 1, linetype="dashed", ncp = 10) +
+  geom_text(x=3, y=3.5, label=paste("Fst =", fst_yvg[15,]$Weighted)) +
+  geom_taxalink(taxa1=ygbb[2,]$P1, taxa2=ygbb[2,]$P3, color="darkgrey", 
+                curvature = 1.3, size = 1, linetype="dashed", ncp = 10) +
+  geom_text(x=3, y=2.5, label=paste("Fst =", fst_yvg[12,]$Weighted)) +
+  ggtitle(paste("Interpretation 2 ", marker, ": ",
+                "((", ygbb[2,]$P1, ",", ygbb[2,]$P2, "),", ygbb[2,]$P3, ")", sep = "")) +
+  geom_text(x=0.5, y=4,   label=paste("Dstat ="  ,ygbb[2,]$BUSCO.D.stat)) +
+  geom_text(x=0.5, y=3.7, label=paste("Z-Score =",ygbb[2,]$BUSCO.Z.score)) +
+  xlim(0,3.5)
+int <- ggarrange(int1, int2, ncol = 2)
+
+
+ggsave(plot = int, filename=paste("Topology_",marker, ".png", sep = ""),               
+       width = 3000, height = 1800, units = "px",
+       path = paste(work_dir,"/", marker, "-image", sep = ""))
