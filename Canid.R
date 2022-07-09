@@ -148,7 +148,7 @@ for (x in 1:15) {                                                               
          path = paste(work_dir,"/", marker, "-image", sep = ""))
 }
 ####----------------------------------------------------------------------------
-####Part Six: Coverage 
+####Part Six: Coverage and depth
 filelist <- scan(paste(work_dir, "/", marker, "_covlist.txt", sep=""), 
                  what=character())                                              ##Upload list of files
 cov_dir <- paste(work_dir, "/", marker, "-cov/", sep="")                        ##File location
@@ -163,5 +163,18 @@ for (indiv in filelist) {                                                       
 rm(cov_df)                                                                      ##Clear cov_df if restarting the loop, which appends.
 write.table(cov_df, paste(work_dir, "/", marker, "_avg_cov.txt", sep = ""),
             sep="\t",row.names=FALSE)
+
+dp <- ggplot(depth, aes(x=Specimen, y=Depth, fill=Marker)) +                    ##plot average depth
+  geom_bar(position = "dodge", stat="identity") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = c(0.2,0.8)) +
+  ylab("Average Depth") +
+  ggtitle("Average Depth per sample")
+
+ggsave(plot = dp, width = 3500, height = 2000, units = "px",
+       filename = paste("avg_depth.png", sep = ""),
+       path = paste(work_dir, "/all-image", sep = ""))
+
 
 ####----------------------------------------------------------------------------
