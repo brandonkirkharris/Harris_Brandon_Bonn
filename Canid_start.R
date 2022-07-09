@@ -8,6 +8,8 @@
   library(viridis)                                                              ##For visible graphical output
   library(jntools)                                                              ##Derives order of specimens on edge of a tree
   library(tidyr)                                                                ##For gather function in structure plot step
+  library(ggpubr)                                                               ##for ggarrange
+
 }
 ##upload snp tables. Upload only a few at a time for memory
 work_dir          <- "./r5_busco"
@@ -16,6 +18,12 @@ master_y          <- read.table("./Specimen-Y.tsv"                              
 master_M          <- read.table("./Specimen-M.tsv"                              ,           sep = "\t", header = T)
 wfst              <- read.table(paste(work_dir,"/wfst.tsv"                      , sep=""),  sep = "\t", header = T)
 pfst              <- read.table(paste(work_dir,"/pfst.tsv"                      , sep=""),  sep = "\t", header = T)
+wfst_yvg          <- read.table(paste(work_dir,"/wfst-yvg.tsv"                  , sep=""),  sep = "\t", header = T)
+pfst_yvg          <- read.table(paste(work_dir,"/pfst-yvg.tsv"                  , sep=""),  sep = "\t", header = T)
+
+
+depth             <- read.table(paste(work_dir,"/all-depth.tsv"                 , sep=""),  sep = "\t", header = T)
+ygbb              <- read.table(paste(work_dir,"/yel-glw-BBAA.tsv"              , sep=""),  sep = "\t", header = T)
 
 
 busco_eigenvec    <- read.table(paste(work_dir,"/busco-pca.eigenvec"            , sep=""),  sep = "\t", header = F)
